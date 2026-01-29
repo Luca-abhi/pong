@@ -39,6 +39,23 @@ function love.load()
 
 
 
+    ballX=VIRTUAL_WIDTH/2-2
+    ballY=VIRTUAL_HEIGHT/2-2
+
+
+
+    ballDX=math.random(2)==1 and 100 or -100
+
+
+
+    ballDY=math.random(-50,50)
+
+
+
+    gameState="start"
+
+
+
 
 end
 
@@ -53,8 +70,18 @@ function love.update(dt)
     if love.keyboard.isDown('up') then
         player2Y=player2Y - PADDLE_SPEED*dt --as moving up so negative
     elseif love.keyboard.isDown('down') then
-        player2Y=player2Y + PADDLE_SPEED*dt  --as moving down so positve
+        player2Y=player2Y + PADDLE_SPEED*dt  --as moving down so positive
     end
+
+
+
+    if gameState=="play" then
+        ballX=ballX+ballDX*dt
+        ballY=ballY+ballDY*dt
+    end 
+
+
+
 
 
 
@@ -67,6 +94,32 @@ function love.keypressed(key)
     if key=='escape' then
         love.event.quit()
     end
+
+
+
+    if key=="enter" or key=="return" then
+        if gameState=="start" then
+            gameState="play"
+        else
+            gameState="start"
+            ballX=VIRTUAL_WIDTH/2-2
+            ballY=VIRTUAL_HEIGHT/2-2
+
+
+
+            ballDX=math.random(2)==1 and 100 or -100
+
+
+
+            ballDY=math.random(-50,50) *1.5
+
+
+
+        
+
+ 
+        end
+    end
 end
 function love.draw()
     push:apply('start')
@@ -77,13 +130,20 @@ function love.draw()
 
 
 
+    if gameState=="start" then 
+        love.graphics.printf("Hello start! ",0,20,VIRTUAL_WIDTH,'center')
+    else
+        love.graphics.printf("Hello play! ",0,20,VIRTUAL_WIDTH,"center")
+    end
+
+
     love.graphics.setFont(smallfont)
 
     love.graphics.printf(
         -- text,x,y,limit,align
         "HELLO PONG",
-        0,
         20,
+        0,
         VIRTUAL_WIDTH,
         'center'
     )
@@ -100,7 +160,6 @@ function love.draw()
     love.graphics.rectangle("fill",VIRTUAL_WIDTH-10,player2Y,5,20)
 
     -- ball
-
-    love.graphics.circle("fill",VIRTUAL_WIDTH/2-2,VIRTUAL_HEIGHT/2-2,4)
+    love.graphics.circle("fill",ballX,ballY,4)
     push:apply('end')
 end
