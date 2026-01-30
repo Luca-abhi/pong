@@ -15,6 +15,10 @@ function love.load()
     love.graphics.setDefaultFilter("nearest","nearest")
 
 
+
+    love.window.setTitle("pong")
+
+
     smallfont=love.graphics.newFont("font.ttf",8)
 
     scorefont=love.graphics.newFont("font.ttf",32)
@@ -124,14 +128,7 @@ function love.draw()
         love.graphics.printf("Hello play! ",0,20,VIRTUAL_WIDTH,"center")
     end             
 
-    love.graphics.printf(
-        -- text,x,y,limit,align
-        "HELLO PONG",
-        0,
-        0,
-        VIRTUAL_WIDTH,
-        'center'
-    )
+    
     love.graphics.setFont(scorefont)
     love.graphics.print(tostring(player1score),VIRTUAL_WIDTH/2-50,VIRTUAL_HEIGHT/3)
     love.graphics.print(tostring(player1score),VIRTUAL_WIDTH/2+30,VIRTUAL_HEIGHT/3)
