@@ -35,3 +35,16 @@ end
 function Ball:render()
     love.graphics.circle("fill",self.x,self.y,self.radius)
 end
+
+
+
+
+function Ball:collision(paddle)
+    if self.x>paddle.x+paddle.width or self.y>paddle.y+paddle.height then
+        return false
+    end
+    if paddle.x>self.x+self.radius or paddle.y>self.y+self.radius then
+        return false
+    end
+    return true
+end
