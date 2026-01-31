@@ -58,6 +58,87 @@ end
 
 
 function love.update(dt)
+    if gameState=="play" then
+        if ball:collision(player1) then
+            ball.dx=-ball.dx*1.03
+            ball.x=player1.x+4
+            
+
+
+
+            if ball.dy<0 then
+                ball.dy=-math.random(10,150)
+            else
+                ball.dy=math.random(10,150)
+            
+            end
+
+
+
+
+        end
+
+
+
+        if ball:collision(player2) then
+            ball.dx=-ball.dx*1.03
+            ball.x=player2.x-4
+            
+
+
+
+            if ball.dy<0 then
+                ball.dy=-math.random(10,150)
+            else
+                ball.dy=math.random(10,150)
+            
+            end
+
+
+
+
+        end
+
+
+        if ball.y<0 then
+            ball.y=0
+            ball.dy=-ball.dy
+        end
+        if ball.y>VIRTUAL_HEIGHT then
+            ball.y=VIRTUAL_HEIGHT
+            ball.dy=-ball.dy
+        end
+    end
+
+
+
+
+    if ball.x<0 then
+        servingplayer=1
+        player2score=player2score+1
+        ball:reset()
+        gameState="start"
+    end
+
+
+
+    if ball.x>VIRTUAL_WIDTH then
+        servingplayer=2
+        player1score=player1score+1
+        ball:reset()
+        gameState="start"
+    end
+
+
+        
+
+
+
+
+
+
+
+
     if love.keyboard.isDown('w') then
         player1.dy=- PADDLE_SPEED --as moving up so negative
     elseif love.keyboard.isDown('s') then
