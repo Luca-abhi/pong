@@ -153,9 +153,9 @@ function love.update(dt)
 
 
 
-    if love.keyboard.isDown('w') then
+    if love.keyboard.isDown("a") then
         player1.dy=- PADDLE_SPEED --as moving up so negative
-    elseif love.keyboard.isDown('s') then
+    elseif love.keyboard.isDown('z') then
         player1.dy= PADDLE_SPEED  --as moving down so positive
     else
         player1.dy=0
