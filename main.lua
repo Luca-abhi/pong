@@ -14,18 +14,11 @@ function love.load()
     
     love.graphics.setDefaultFilter("nearest","nearest")
 
-
-
     love.window.setTitle("pong")
-
 
     smallfont=love.graphics.newFont("font.ttf",8)
 
     scorefont=love.graphics.newFont("font.ttf",32)
-
-
-
-
 
 
     love.graphics.setFont(smallfont)
@@ -57,15 +50,13 @@ function love.load()
 
 
 
-
-end
+end             
 
 
 
 function love.resize(w,h)
     push:resize(w,h)
 end
-
 
 
 
@@ -162,18 +153,6 @@ function love.update(dt)
 
 
 
-
-    
-
-        
-
-
-
-
-
-
-
-
     if love.keyboard.isDown('w') then
         player1.dy=- PADDLE_SPEED --as moving up so negative
     elseif love.keyboard.isDown('s') then
@@ -227,7 +206,7 @@ function love.keypressed(key)
 
 
 
-            lose.load()
+            love.load()
             
             
             
@@ -270,8 +249,11 @@ function love.draw()
         love.graphics.printf("press enter to serve .",0,20,VIRTUAL_WIDTH,"center")
 
     elseif gameState=="done" then
-            love.graphics.printf("player"..tostring(winningPlayer),0,10,VIRTUAL_WIDTH,"center")
+            love.graphics.printf("player"..tostring(winningPlayer) .. "    wins....WINNER",0,10,VIRTUAL_WIDTH,"center")
 
+
+
+            love.graphics.printf("press Enter or Return to start the game again...",0,30,VIRTUAL_WIDTH,"center")
 
     elseif gameState=="play" then
 
@@ -280,17 +262,7 @@ function love.draw()
 
     end             
 
-
-    
-
-
-    
-    
-    
-
     -- two paddles
-
-
 
     player1:render()
     player2:render()
@@ -311,9 +283,3 @@ function displayScore()
     love.graphics.print(tostring(player2score),VIRTUAL_WIDTH/2+30,VIRTUAL_HEIGHT/3)
 
 end
-
-
-
-
-
-
