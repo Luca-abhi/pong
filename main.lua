@@ -63,9 +63,6 @@ end
 
 function love.update(dt)
 
-
-
-    
     if gameState=="serve" then
         ball.dy=math.random(-50,50)
         if servingplayer==1 then
@@ -74,19 +71,12 @@ function love.update(dt)
             ball.dx=-math.random(150,200)
         end
 
-
-
-
     elseif gameState=="play" then
-
 
         if ball:collision(player1) then
             ball.dx=-ball.dx*1.03
             ball.x=player1.x+4
-            
-
-
-
+        
             if ball.dy<0 then
                 ball.dy=-math.random(10,150)
             else
@@ -94,12 +84,7 @@ function love.update(dt)
             
             end
 
-
-
-
         end
-
-
 
         if ball:collision(player2) then
             ball.dx=-ball.dx*1.03
@@ -115,9 +100,6 @@ function love.update(dt)
             
             end
 
-
-
-
         end
 
 
@@ -129,27 +111,49 @@ function love.update(dt)
             ball.y=VIRTUAL_HEIGHT
             ball.dy=-ball.dy
         end
+    
+
+
+
+
+        if ball.x<0 then
+            servingplayer=1
+        
+            player2score=player2score+1
+            if player2score==10 then 
+                winningPlayer=2
+                gameState="done"
+            else
+                gameState="serve"
+                ball:reset()
+            end 
+        
+        end
+
+    
+
+        if ball.x>VIRTUAL_WIDTH then
+            servingplayer=2
+            player1score=player1score+1
+            if player1score==10 then 
+                winningPlayer=1
+                gameState="done"
+            else
+                gameState="serve"
+                ball:reset()
+            end
+        end
     end
 
 
 
 
-    if ball.x<0 then
-        servingplayer=1
-        player2score=player2score+1
-        ball:reset()
-        gameState="serve"
-    end
 
 
 
-    if ball.x>VIRTUAL_WIDTH then
-        servingplayer=2
-        player1score=player1score+1
-        ball:reset()
-        gameState="serve"
-    end
 
+
+    
 
         
 
@@ -205,6 +209,15 @@ function love.keypressed(key)
             gameState="serve"
         elseif gameState=="serve" then
             gameState="play"
+        elseif gameState=="done" then
+
+
+
+
+
+
+
+            lose.load()
             
             
             
@@ -246,13 +259,19 @@ function love.draw()
         love.graphics.printf("player"..tostring(servingplayer),0,10,VIRTUAL_WIDTH,"center")
         love.graphics.printf("press enter to serve .",0,20,VIRTUAL_WIDTH,"center")
 
+    elseif gameState=="done" then
+            love.graphics.printf("player"..tostring(winningPlayer),0,10,VIRTUAL_WIDTH,"center")
 
 
     elseif gameState=="play" then
 
+    
 
 
-    end
+    end             
+
+
+    
 
 
     
