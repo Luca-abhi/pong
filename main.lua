@@ -2,6 +2,7 @@ push=require "push"
 Class=require  "class"
 require "paddle"
 require "ball"
+require "computerpaddle"
 
 WINDOW_WIDTH=1280
 WINDOW_HEIGHT=720
@@ -32,7 +33,7 @@ function love.load()
 
 
 
-    player1=Paddle(10,30,5,20)
+    player1=ComputerPaddle(10,30,5,20,PADDLE_SPPEED)
     player2=Paddle(VIRTUAL_WIDTH-10,VIRTUAL_HEIGHT-30,5,20)
 
     
@@ -66,6 +67,7 @@ function love.update(dt)
 
     if gameState=="serve" then
         ball.dy=math.random(-50,50)
+        
         if servingplayer==1 then
             ball.dx=math.random(150,200)
         else 
@@ -73,7 +75,18 @@ function love.update(dt)
         end
 
     elseif gameState=="play" then
+        
+        
+        
+        
 
+
+
+
+
+
+
+        
         if ball:collision(player1) then
             ball.dx=-ball.dx*1.03
             ball.x=player1.x+4
@@ -153,13 +166,14 @@ function love.update(dt)
 
 
 
-    if love.keyboard.isDown("a") then
-        player1.dy=- PADDLE_SPEED --as moving up so negative
-    elseif love.keyboard.isDown('z') then
-        player1.dy= PADDLE_SPEED  --as moving down so positive
-    else
-        player1.dy=0
-    end 
+    -- if love.keyboard.isDown("a") then
+    --     player1.dy=- PADDLE_SPEED --as moving up so negative
+    -- elseif love.keyboard.isDown('z') then
+    --     player1.dy= PADDLE_SPEED  --as moving down so positive
+    -- else
+    --     player1.dy=0
+    -- end 
+    
 
     if love.keyboard.isDown("up") then
         player2.dy=- PADDLE_SPEED --as moving up so negative
@@ -173,6 +187,16 @@ function love.update(dt)
 
     if gameState=="play" then
         ball:update(dt)
+        -- if ball.dy>0 then
+        --     player1.dy=PADDLE_SPEED
+        -- elseif ball.dy<0 then
+        --     player1.dy=-PADDLE_SPEED
+        -- end
+        player1.y=player1.y+player1.dy*dt
+
+
+
+        -- player1.y=ball.y         --    unbeatable computer player *\_/*
     end 
 
     player1:update(dt)
